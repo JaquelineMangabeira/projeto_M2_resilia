@@ -2,13 +2,14 @@ from random import randint
 from time import sleep
 jogadores = []
 podio = [[], []]   #indice 0 - ganhadores - indice 1 perdedores
+marcador = '  _ '
 cores = ['\033[1;31m','\033[1;41m','\033[1;32m','\033[1;42m','\033[1;33m','\033[1;34m','\033[1;44m','\033[1;35m',
     '\033[1;45m','\033[1;36m','\033[1;46m','\033[1;37m','\033[1;90m','\033[1;100m','\033[1;91m','\033[1;101m',
     '\033[1;92m','\033[1;102m','\033[1;93m','\033[1;94m','\033[1;104m','\033[1;95m','\033[1;105m',
     '\033[1;96m']
 #tirar as cores ilegíveis, precisa testar
 
-def titulos(msg, cor):
+def titulos(msg, cor):         #função para imprimir o nome do jogador da vez com cores
     bInv = '\033[;7m'
     cEnd = '\033[0m'
     print()
@@ -16,7 +17,7 @@ def titulos(msg, cor):
     print()
 
 
-def passouDeFase(msg):
+def passouDeFase(msg):            #função para imprimir se o jogador acertou com cor verde
     cEnd = '\033[0m'
     cGre = '\033[32m'
     print(cGre + ('=' * 100) + cEnd)
@@ -31,8 +32,8 @@ def perdeu(msg):
     print(cRed + msg.center(100)+ cEnd)
     print(cRed + ('=' * 100) + cEnd)
 
-# sortear palavras secretas
-def palavraSecreta():
+
+def palavraSecreta():          # sortear palavras secretas
     listaPalavras = ["boneco de neve", "papal noel", "treno", "sinos", "estrela de belem", "presepio", "pinheiro",
     "guirlanda", "advento", "panetone", "ceia", "tres reis magos", "uvas passas", "pave ou pra comer", "chamine",
     "luzes de natal,", "presentes", "carta", "bolas de natal", "feliz natal", "arvore de natal"] 
@@ -40,8 +41,8 @@ def palavraSecreta():
     palavra_secreta = str(listaPalavras[randint(0,(len(listaPalavras)-1))]).upper() #a palavra secreta é sorteada da lista                                                   
     return palavra_secreta
 
-marcador = '  _ '
-def letrasAcertadas(palavra):
+
+def letrasAcertadas(palavra):         # função para mostrar as letras de forma legivel
     verificaLetras = []
     for i in palavra:
         if i.isspace():
@@ -49,36 +50,34 @@ def letrasAcertadas(palavra):
         else:
             verificaLetras.append(marcador)
       
-    return verificaLetras     #ainda está ilegível, não dá para ver vem os espaços e precisa melhorar
+    return verificaLetras    
 
-# define quantos jogadores irão jogar e atribui a cada um deles - uma palavra, a qttd de erros e uma cor
 
-def definirJogadores():
+def definirJogadores():      # define quantos jogadores irão jogar e atribui a cada um deles - uma palavra, a qttd de erros e uma cor
     numeroJogadores = int(input('Qantas pessoas irão jogar? '))
-    if numeroJogadores >20:
+    if numeroJogadores >20:      #limtar a 20 jogadores 
         print('Valor max atingido. Max 20 jogadores')
         numeroJogadores = int(input('Qantas pessoas irão jogar? '))
-    for i in range(numeroJogadores):
+    for i in range(numeroJogadores):                #dando os nomes de cada jogador 
         nome = input(f'Informe o jogador {i+1}: ')
         
-        jogadores.append({'nome':nome, 'erros': 0})
-        jogadores[i].update(palavra = palavraSecreta())
-        jogadores[i].update(letrasAcertadas = letrasAcertadas(jogadores[i]['palavra'])) 
+        jogadores.append({'nome':nome, 'erros': 0})     #cria um dict e add a chave erros
+        jogadores[i].update(palavra = palavraSecreta())   #adiciona a palavra secreta ao dict
+        jogadores[i].update(letrasAcertadas = letrasAcertadas(jogadores[i]['palavra']))  #adiciona as letras acertadas ao dict
         
-        cor = (cores[randint(0,(len(cores)-1))])
-        jogadores[i].update(cor = cor)
+        cor = (cores[randint(0,(len(cores)-1))])   #soteia uma cor por jogador
+        jogadores[i].update(cor = cor)               #adiciona a cor ao dict
         cores.remove(cor) #para não repetir as cores
     return jogadores
 
 
-# rodar jogadores
 vez = 0  # a vez é o indice da lista de cada jogador
-def rodarJogadores():
+def rodarJogadores():           # para rodar os jogadores caso perde ou ganha
     global vez
     if vez > len(jogadores) - 1: #se o indice chega ao fim
         vez = 0                     #volta ao primeiro jogador (indice 0)
 
-    jogadorVez = jogadores[vez]['nome']
+    jogadorVez = jogadores[vez]['nome']          #printa as informações em cada rodada
     tentativas = 6 - jogadores[vez]['erros']
     titulos(f'Vez do jogador {jogadorVez}', jogadores[vez]['cor'])
     print(f'Restam {tentativas} tentativas')
