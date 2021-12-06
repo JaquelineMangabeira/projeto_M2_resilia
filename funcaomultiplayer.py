@@ -38,7 +38,6 @@ def palavraSecreta():
     "luzes de natal,", "presentes", "carta", "bolas de natal", "feliz natal", "arvore de natal"] 
     
     palavra_secreta = str(listaPalavras[randint(0,(len(listaPalavras)-1))]).upper() #a palavra secreta é sorteada da lista                                                   
-    
     return palavra_secreta
 
 marcador = '  _ '
