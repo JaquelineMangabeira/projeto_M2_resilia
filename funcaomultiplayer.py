@@ -3,11 +3,12 @@ from time import sleep
 jogadores = []
 podio = [[], []]   #indice 0 - ganhadores - indice 1 perdedores
 marcador = '  _ '
+vez = 0  # a vez é o indice da lista de cada jogador
 cores = ['\033[1;31m','\033[1;41m','\033[1;32m','\033[1;42m','\033[1;33m','\033[1;34m','\033[1;44m','\033[1;35m',
     '\033[1;45m','\033[1;36m','\033[1;46m','\033[1;37m','\033[1;90m','\033[1;100m','\033[1;91m','\033[1;101m',
     '\033[1;92m','\033[1;102m','\033[1;93m','\033[1;94m','\033[1;104m','\033[1;95m','\033[1;105m',
-    '\033[1;96m']
-#tirar as cores ilegíveis, precisa testar
+    '\033[1;96m']#tirar as cores ilegíveis, precisa testar
+
 
 def titulos(msg, cor):         #função para imprimir o nome do jogador da vez com cores
     bInv = '\033[;7m'
@@ -71,7 +72,6 @@ def definirJogadores():      # define quantos jogadores irão jogar e atribui a 
     return jogadores
 
 
-vez = 0  # a vez é o indice da lista de cada jogador
 def rodarJogadores():           # para rodar os jogadores caso perde ou ganha
     global vez
     if vez > len(jogadores) - 1: #se o indice chega ao fim
@@ -88,6 +88,49 @@ def tentativa():
     chute = input('\nQual letra? ').strip().upper()     # colocar uma confirmação da letra, pode ser digitada errado
                                                             #colocar uma validação para colocar somente uma letra e recusr números
     return chute
+
+
+def acertouLetra(tentativa):
+    
+        index = 0
+        if tentativa in jogadores[vez]['letrasAcertadas']:
+            print('Letra já informada, escolha outra')
+
+        for letra in jogadores[vez]['palavra']:
+            if (tentativa.upper() == letra.upper()):
+                jogadores[vez]['letrasAcertadas'][index] = letra                
+            index += 1
+        print(f'Bela tentativa, adicionando letra {tentativa}')
+        print(jogadores[vez]['letrasAcertadas'])
+            
+        if marcador not in jogadores[vez]['letrasAcertadas']:
+            ganhador = jogadores[vez]['nome']
+            passouDeFase(f'{ganhador} acertou a palavra')
+            podio[0].append(jogadores[vez]['nome'])                     #adiciona o nome ao pódio
+            jogadores.remove(jogadores[vez])                        #remove vencedor da lista de jogadores
+            if len(jogadores) > 0:
+                rodarJogadores()
+
+
+def errouLetra():
+    global vez
+    jogadores[vez]['erros'] += 1
+    desenha_forca(jogadores[vez]['erros'])
+    
+    if jogadores[vez]['erros'] == 6:
+        jogadorVez = jogadores[vez]['nome']
+        palavra = jogadores[vez]['palavra']                    #tentar entender pq nao consigo colocar direto sem declarer variável
+        perdeu(f'{jogadorVez} foi enforcado e saiu do jogo. \nA palavra era {palavra}')          
+        podio[1].append(jogadores[vez]['nome'])                     #adiciona o nome ao pódio
+        jogadores.remove(jogadores[vez])                        #remove perdedor da lista de jogadores
+        if len(jogadores) == 0:
+            perdeu('Fim de Jogo')
+        else:
+            rodarJogadores()
+    else:
+        vez += 1
+        perdeu('Passou a vez')
+        rodarJogadores()
 
 
 def desenha_forca(erros):
@@ -150,8 +193,8 @@ def desenha_forca(erros):
         sleep(0.1)
         print(" |      / \   ")
 
-# iniciar o jogo
-def inicioJogo():
+
+def inicioJogo(): # iniciar o jogo
     global vez
     
     rodarJogadores() 
@@ -160,45 +203,12 @@ def inicioJogo():
     while len(jogadores) > 0:
         
         chute = str(tentativa())
-        
         if chute in jogadores[vez]['palavra']:
-            index = 0
-            if chute in jogadores[vez]['letrasAcertadas']:
-                print('Letra já informada, escolha outra')
-
-            for letra in jogadores[vez]['palavra']:
-                if (chute.upper() == letra.upper()):
-                    jogadores[vez]['letrasAcertadas'][index] = letra                
-                index += 1
-            print(f'Bela tentativa, adicionando letra {chute}')
-            print(jogadores[vez]['letrasAcertadas'])
-             
-            if marcador not in jogadores[vez]['letrasAcertadas']:
-                ganhador = jogadores[vez]['nome']
-                passouDeFase(f'{ganhador} acertou a palavra')
-                podio[0].append(jogadores[vez]['nome'])                     #adiciona o nome ao pódio
-                jogadores.remove(jogadores[vez])                        #remove vencedor da lista de jogadores
-                if len(jogadores) > 0:
-                    rodarJogadores()
+            acertouLetra(chute)
                 
         else:
-            jogadores[vez]['erros'] += 1
-            desenha_forca(jogadores[vez]['erros'])
-            
-            if jogadores[vez]['erros'] == 6:
-                jogadorVez = jogadores[vez]['nome']
-                palavra = jogadores[vez]['palavra']                    #tentar entender pq nao consigo colocar direto sem declarer variável
-                perdeu(f'{jogadorVez} foi enforcado e saiu do jogo. \nA palavra era {palavra}')          
-                podio[1].append(jogadores[vez]['nome'])                     #adiciona o nome ao pódio
-                jogadores.remove(jogadores[vez])                        #remove perdedor da lista de jogadores
-                if len(jogadores) == 0:
-                    perdeu('Fim de Jogo')
-                else:
-                    rodarJogadores()
-            else:
-                vez += 1
-                perdeu('Passou a vez')
-                rodarJogadores()
+            errouLetra()
+
     return podio
 
 
