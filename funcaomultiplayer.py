@@ -77,10 +77,8 @@ def rodarJogadores():           # para rodar os jogadores caso perde ou ganha
     if vez > len(jogadores) - 1: #se o indice chega ao fim
         vez = 0                     #volta ao primeiro jogador (indice 0)
 
-    jogadorVez = jogadores[vez]['nome']          #printa as informações em cada rodada
-    tentativas = 6 - jogadores[vez]['erros']
-    titulos(f'Vez do jogador {jogadorVez}', jogadores[vez]['cor'])
-    print(f'Restam {tentativas} tentativas')
+    titulos(f'Vez do jogador {jogadores[vez]["nome"]}', jogadores[vez]['cor'])
+    print(f'Restam {6 - jogadores[vez]["erros"]} tentativas')
     print(jogadores[vez]['letrasAcertadas'])
 
 
@@ -118,15 +116,16 @@ def errouLetra():
     desenha_forca(jogadores[vez]['erros'])
     
     if jogadores[vez]['erros'] == 6:
-        jogadorVez = jogadores[vez]['nome']
-        palavra = jogadores[vez]['palavra']                    #tentar entender pq nao consigo colocar direto sem declarer variável
-        perdeu(f'{jogadorVez} foi enforcado e saiu do jogo. \nA palavra era {palavra}')          
-        podio[1].append(jogadores[vez]['nome'])                     #adiciona o nome ao pódio
-        jogadores.remove(jogadores[vez])                        #remove perdedor da lista de jogadores
+        perdeu(f'{jogadores[vez]["nome"]} foi enforcado. A palavra era {jogadores[vez]["palavra"] }')          
+        
+        podio[1].append(jogadores[vez]['nome'])  #adiciona o nome ao pódio
+        jogadores.remove(jogadores[vez]) #remove perdedor da lista de jogadores
+        
         if len(jogadores) == 0:
             perdeu('Fim de Jogo')
         else:
             rodarJogadores()
+    
     else:
         vez += 1
         perdeu('Passou a vez')
