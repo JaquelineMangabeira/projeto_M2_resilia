@@ -1,5 +1,7 @@
 from random import randint
 from time import sleep
+import pygame
+
 jogadores = []
 podio = [[], []]   #indice 0 - ganhadores - indice 1 perdedores
 marcador = '  _ '
@@ -8,6 +10,13 @@ cores = ['\033[1;31m','\033[1;41m','\033[1;32m','\033[1;42m','\033[1;33m','\033[
     '\033[1;45m','\033[1;36m','\033[1;46m','\033[1;37m','\033[1;90m','\033[1;100m','\033[1;91m','\033[1;101m',
     '\033[1;92m','\033[1;102m','\033[1;93m','\033[1;94m','\033[1;104m','\033[1;95m','\033[1;105m',
     '\033[1;96m']#tirar as cores ilegíveis, precisa testar
+
+def tocarJingle():
+    pygame.mixer.init()
+    pygame.init()
+    pygame.mixer.music.load("JingleBells.mp3")
+    pygame.mixer.music.play()
+    pygame.event.wait()
 
 
 def titulos(msg, cor):         #função para imprimir o nome do jogador da vez com cores
@@ -222,6 +231,9 @@ def imprimePodio():
         print(f'{colocacao}º lugar', end= ' - ')
         print(i)
         colocacao += 1
+    
+    tocarJingle()
+
 
 definirJogadores()
 inicioJogo()
