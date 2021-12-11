@@ -4,7 +4,7 @@ import pygame
 
 jogadores = []
 podio = [[], []]   #indice 0 - ganhadores - indice 1 perdedores
-marcador = '  _ '
+marcador = ' __ '
 vez = 0  # a vez é o indice da lista de cada jogador
 cores = ['\033[1;31m','\033[1;41m','\033[1;32m','\033[1;42m','\033[1;33m','\033[1;34m','\033[1;44m','\033[1;35m',
     '\033[1;45m','\033[1;36m','\033[1;46m','\033[1;37m','\033[1;90m','\033[1;100m','\033[1;91m','\033[1;101m',
@@ -19,7 +19,7 @@ def tocarJingle():
     pygame.event.wait()
 
 
-def titulos(msg, cor):         #função para imprimir o nome do jogador da vez com cores
+def titulos(msg, cor):         #função de formatação
     bInv = '\033[;7m'
     cEnd = '\033[0m'
     print()
@@ -27,7 +27,7 @@ def titulos(msg, cor):         #função para imprimir o nome do jogador da vez 
     print()
 
 
-def passouDeFase(msg):            #função para imprimir se o jogador acertou com cor verde
+def passouDeFase(msg):            #função de formatação
     cEnd = '\033[0m'
     cGre = '\033[32m'
     print(cGre + ('=' * 100) + cEnd)
@@ -35,7 +35,7 @@ def passouDeFase(msg):            #função para imprimir se o jogador acertou c
     print(cGre + ('=' * 100) + cEnd)
 
 
-def perdeu(msg):
+def perdeu(msg):                      #função de formatação
     cEnd = '\033[0m'
     cRed = '\033[31m'
     print(cRed + ('=' * 100) + cEnd)
@@ -48,7 +48,7 @@ def palavraSecreta():          # sortear palavras secretas
     "guirlanda", "advento", "panetone", "ceia", "tres reis magos", "uvas passas", "pave ou pra comer", "chamine",
     "luzes de natal,", "presentes", "carta", "bolas de natal", "feliz natal", "arvore de natal"] 
     
-    palavra_secreta = str(listaPalavras[randint(0,(len(listaPalavras)-1))]).upper() #a palavra secreta é sorteada da lista                                                   
+    palavra_secreta = str(listaPalavras[randint(0,(len(listaPalavras)-1))]).upper() #a palavra secreta é sorteada da lista                                                  
     return palavra_secreta
 
 
@@ -64,7 +64,7 @@ def letrasAcertadas(palavra):         # função para mostrar as letras de forma
 
 
 def definirJogadores():      # define quantos jogadores irão jogar e atribui a cada um deles - uma palavra, a qttd de erros e uma cor
-    numeroJogadores = int(input('Qantas pessoas irão jogar? '))
+    numeroJogadores = int(input('Quantas pessoas irão jogar? '))
     if numeroJogadores >20:      #limtar a 20 jogadores 
         print('Valor max atingido. Max 20 jogadores')
         numeroJogadores = int(input('Qantas pessoas irão jogar? '))
@@ -78,6 +78,7 @@ def definirJogadores():      # define quantos jogadores irão jogar e atribui a 
         cor = (cores[randint(0,(len(cores)-1))])   #soteia uma cor por jogador
         jogadores[i].update(cor = cor)               #adiciona a cor ao dict
         cores.remove(cor) #para não repetir as cores
+        
     return jogadores
 
 
@@ -206,8 +207,7 @@ def inicioJogo(): # iniciar o jogo
     global vez
     
     rodarJogadores() 
-    # morreu = venceu = False
-
+    
     while len(jogadores) > 0:
         
         chute = str(tentativa())
