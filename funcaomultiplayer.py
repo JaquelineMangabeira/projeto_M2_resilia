@@ -1,5 +1,6 @@
 from random import randint
 from time import sleep
+from threading import Thread
 import pygame
 
 jogadores = []
@@ -10,7 +11,10 @@ cores = ['\033[1;31m','\033[1;41m','\033[1;32m','\033[1;42m','\033[1;33m','\033[
     '\033[1;45m','\033[1;36m','\033[1;46m','\033[1;37m','\033[1;90m','\033[1;100m','\033[1;91m','\033[1;101m',
     '\033[1;92m','\033[1;102m','\033[1;93m','\033[1;94m','\033[1;104m','\033[1;95m','\033[1;105m',
     '\033[1;96m']#tirar as cores ilegíveis, precisa testar
+def bemVindos():
+    print('antes disso tem que rolar os menus iniciais')
 
+    
 def tocarJingle():
     pygame.mixer.init()
     pygame.init()
@@ -64,6 +68,7 @@ def letrasAcertadas(palavra):         # função para mostrar as letras de forma
 
 
 def definirJogadores():      # define quantos jogadores irão jogar e atribui a cada um deles - uma palavra, a qttd de erros e uma cor
+    print()
     numeroJogadores = int(input('Quantas pessoas irão jogar? '))
     if numeroJogadores >20:      #limtar a 20 jogadores 
         print('Valor max atingido. Max 20 jogadores')
@@ -98,8 +103,7 @@ def tentativa():
     return chute
 
 
-def acertouLetra(tentativa):
-    
+def acertouLetra(tentativa):    
         index = 0
         if tentativa in jogadores[vez]['letrasAcertadas']:
             print('Letra já informada, escolha outra')
@@ -231,10 +235,3 @@ def imprimePodio():
         print(f'{colocacao}º lugar', end= ' - ')
         print(i)
         colocacao += 1
-    
-    tocarJingle()
-
-
-definirJogadores()
-inicioJogo()
-imprimePodio()
