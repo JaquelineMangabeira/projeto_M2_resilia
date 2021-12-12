@@ -104,6 +104,17 @@ def tentativa():
                                                             #colocar uma validação para colocar somente uma letra e recusr números
     return chute
 
+def imprimePodio():
+    colocacao = 1
+    for i in podio[0]:
+        print(f'{colocacao}º lugar', end= ' - ')
+        print(i)
+        colocacao += 1
+
+    for i in podio[1][::-1]:
+        print(f'{colocacao}º lugar', end= ' - ')
+        print(i)
+        colocacao += 1
 
 def acertouLetra(tentativa):    
         index = 0
@@ -124,6 +135,8 @@ def acertouLetra(tentativa):
             jogadores.remove(jogadores[vez])                        #remove vencedor da lista de jogadores
             if len(jogadores) > 0:
                 rodarJogadores()
+            else:
+                imprimePodio()
 
 
 def errouLetra():
@@ -139,6 +152,7 @@ def errouLetra():
         
         if len(jogadores) == 0:
             perdeu('Fim de Jogo')
+            imprimePodio()
         else:
             rodarJogadores()
     
@@ -224,16 +238,3 @@ def inicioJogo(): # iniciar o jogo
             errouLetra()
 
     return podio
-
-
-def imprimePodio():
-    colocacao = 1
-    for i in podio[0]:
-        print(f'{colocacao}º lugar', end= ' - ')
-        print(i)
-        colocacao += 1
-
-    for i in podio[1][::-1]:
-        print(f'{colocacao}º lugar', end= ' - ')
-        print(i)
-        colocacao += 1
