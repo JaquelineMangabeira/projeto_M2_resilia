@@ -11,8 +11,10 @@ cores = ['\033[1;31m','\033[1;41m','\033[1;32m','\033[1;42m','\033[1;33m','\033[
     '\033[1;45m','\033[1;36m','\033[1;46m','\033[1;37m','\033[1;90m','\033[1;100m','\033[1;91m','\033[1;101m',
     '\033[1;92m','\033[1;102m','\033[1;93m','\033[1;94m','\033[1;104m','\033[1;95m','\033[1;105m',
     '\033[1;96m']#tirar as cores ilegíveis, precisa testar
+
+
 def bemVindos():
-    print('antes disso tem que rolar os menus iniciais')
+    print('antes disso tem que rolar os menus iniciais e aqui vão as informações iniciais')
 
     
 def tocarJingle():
