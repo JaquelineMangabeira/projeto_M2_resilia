@@ -4,6 +4,7 @@ from funcoesEsteticas import *
 from menusNavegacao import *
 
 jogadores = []
+copiaJogadores = []
 podio = [[], []]   #indice 0 - ganhadores - indice 1 perdedores
 marcador = ' __ '
 vez = 0  # a vez é o indice da lista de cada jogador
@@ -33,6 +34,7 @@ def letrasAcertadas(palavra):         # função para mostrar as letras de forma
 
 
 def definirJogadores():      # define quantos jogadores irão jogar e atribui a cada um deles - uma palavra, a qttd de erros e uma cor
+    global copiaJogadores
     print()
     numeroJogadores = int(input('Quantas pessoas irão jogar? '))
     if numeroJogadores >20:      #limtar a 20 jogadores 
@@ -48,7 +50,7 @@ def definirJogadores():      # define quantos jogadores irão jogar e atribui a 
         cor = random.choice(cores)   #soteia uma cor por jogador
         jogadores[i].update(cor = cor)               #adiciona a cor ao dict
         cores.remove(cor) #para não repetir as cores
-        
+        copiaJogadores = jogadores[:]
     return jogadores
 
 
@@ -60,8 +62,7 @@ def rodarJogadores():           # para rodar os jogadores caso perde ou ganha
     titulos(f'Vez do jogador {jogadores[vez]["nome"]}', jogadores[vez]['cor'])
     print(f'Restam {6 - jogadores[vez]["erros"]} tentativas')
     print(jogadores[vez]['letrasAcertadas'])
-
-
+    
 def tentativa():
     chute = input('\nQual letra? ').strip().upper()     # colocar uma confirmação da letra, pode ser digitada errado
                                                             #colocar uma validação para colocar somente uma letra e recusr números
@@ -77,6 +78,8 @@ def imprimePodio():
             print(f'{colocacao}º lugar', end= ' - ')
             print(i)
             colocacao += 1
+
+    reinicarJogo()
 
 def acertouLetra(tentativa):    
         index = 0
@@ -200,6 +203,18 @@ def inicioJogo(): # iniciar o jogo
             errouLetra()
 
     return podio
+
+def reinicarJogo():
+    global vez
+    global podio
+    print('1 - Reiniciar Partida \n2 - Reiniciar Jogo \n 3 - Estatística \n4 - Voltar Menu Principal')
+    opcao = int(input('Informe a opção desejada: '))
+    if opcao == 1:
+        print('reiniciando jogo')
+        jogadores = copiaJogadores
+        vez = 0
+        podio
+        inicioJogo()
 
 def rodarJogo():
     bemVindos()
