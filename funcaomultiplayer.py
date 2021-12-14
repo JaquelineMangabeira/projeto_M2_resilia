@@ -1,7 +1,7 @@
 from random import randint
 from time import sleep
 from threading import Thread
-import pygame
+from funcoesEsteticas import *
 
 jogadores = []
 podio = [[], []]   #indice 0 - ganhadores - indice 1 perdedores
@@ -17,38 +17,6 @@ def bemVindos():
     print('antes disso tem que rolar os menus iniciais e aqui vão as informações iniciais')
 
     
-def tocarJingle():
-    pygame.mixer.init()
-    pygame.init()
-    pygame.mixer.music.load("JingleBells.mp3")
-    pygame.mixer.music.play()
-    pygame.event.wait()
-
-
-def titulos(msg, cor):         #função de formatação
-    bInv = '\033[;7m'
-    cEnd = '\033[0m'
-    print()
-    print(bInv + cor + msg.center(100) + cEnd)
-    print()
-
-
-def passouDeFase(msg):            #função de formatação
-    cEnd = '\033[0m'
-    cGre = '\033[32m'
-    print(cGre + ('=' * 100) + cEnd)
-    print(cGre + msg.center(100)+ cEnd)
-    print(cGre + ('=' * 100) + cEnd)
-
-
-def perdeu(msg):                      #função de formatação
-    cEnd = '\033[0m'
-    cRed = '\033[31m'
-    print(cRed + ('=' * 100) + cEnd)
-    print(cRed + msg.center(100)+ cEnd)
-    print(cRed + ('=' * 100) + cEnd)
-
-
 def palavraSecreta():          # sortear palavras secretas
     listaPalavras = ["boneco de neve", "papal noel", "treno", "sinos", "estrela de belem", "presepio", "pinheiro",
     "guirlanda", "advento", "panetone", "ceia", "tres reis magos", "uvas passas", "pave ou pra comer", "chamine",
@@ -238,3 +206,10 @@ def inicioJogo(): # iniciar o jogo
             errouLetra()
 
     return podio
+
+def rodarJogo():
+    bemVindos()
+    definirJogadores()
+    inicioJogo()
+
+rodarJogo()
