@@ -2,6 +2,7 @@ from random import randint
 from time import sleep
 from threading import Thread
 from funcoesEsteticas import *
+from menusNavegacao import *
 
 jogadores = []
 podio = [[], []]   #indice 0 - ganhadores - indice 1 perdedores
@@ -13,10 +14,6 @@ cores = ['\033[1;31m','\033[1;41m','\033[1;32m','\033[1;42m','\033[1;33m','\033[
     '\033[1;96m']#tirar as cores ilegíveis, precisa testar
 
 
-def bemVindos():
-    print('antes disso tem que rolar os menus iniciais e aqui vão as informações iniciais')
-
-    
 def palavraSecreta():          # sortear palavras secretas
     listaPalavras = ["boneco de neve", "papal noel", "treno", "sinos", "estrela de belem", "presepio", "pinheiro",
     "guirlanda", "advento", "panetone", "ceia", "tres reis magos", "uvas passas", "pave ou pra comer", "chamine",
@@ -73,16 +70,15 @@ def tentativa():
     return chute
 
 def imprimePodio():
-    colocacao = 1
-    for i in podio[0]:
-        print(f'{colocacao}º lugar', end= ' - ')
-        print(i)
-        colocacao += 1
 
-    for i in podio[1][::-1]:
-        print(f'{colocacao}º lugar', end= ' - ')
-        print(i)
-        colocacao += 1
+    if len(podio[0]) == 0:
+        print('Não houveram ganhadores')
+    else:
+        colocacao = 1
+        for i in podio[0]:
+            print(f'{colocacao}º lugar', end= ' - ')
+            print(i)
+            colocacao += 1
 
 def acertouLetra(tentativa):    
         index = 0
