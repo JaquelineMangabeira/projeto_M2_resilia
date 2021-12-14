@@ -1,7 +1,8 @@
 from random import randint
 from time import sleep
 from threading import Thread
-import pygame
+from funcoesEsteticas import *
+from menusNavegacao import *
 
 jogadores = []
 podio = [[], []]   #indice 0 - ganhadores - indice 1 perdedores
@@ -11,42 +12,6 @@ cores = ['\033[1;31m','\033[1;41m','\033[1;32m','\033[1;42m','\033[1;33m','\033[
     '\033[1;45m','\033[1;36m','\033[1;46m','\033[1;37m','\033[1;90m','\033[1;100m','\033[1;91m','\033[1;101m',
     '\033[1;92m','\033[1;102m','\033[1;93m','\033[1;94m','\033[1;104m','\033[1;95m','\033[1;105m',
     '\033[1;96m']#tirar as cores ilegíveis, precisa testar
-
-
-def bemVindos():
-    print('antes disso tem que rolar os menus iniciais e aqui vão as informações iniciais')
-
-    
-def tocarJingle():
-    pygame.mixer.init()
-    pygame.init()
-    pygame.mixer.music.load("JingleBells.mp3")
-    pygame.mixer.music.play()
-    pygame.event.wait()
-
-
-def titulos(msg, cor):         #função de formatação
-    bInv = '\033[;7m'
-    cEnd = '\033[0m'
-    print()
-    print(bInv + cor + msg.center(100) + cEnd)
-    print()
-
-
-def passouDeFase(msg):            #função de formatação
-    cEnd = '\033[0m'
-    cGre = '\033[32m'
-    print(cGre + ('=' * 100) + cEnd)
-    print(cGre + msg.center(100)+ cEnd)
-    print(cGre + ('=' * 100) + cEnd)
-
-
-def perdeu(msg):                      #função de formatação
-    cEnd = '\033[0m'
-    cRed = '\033[31m'
-    print(cRed + ('=' * 100) + cEnd)
-    print(cRed + msg.center(100)+ cEnd)
-    print(cRed + ('=' * 100) + cEnd)
 
 
 def palavraSecreta():          # sortear palavras secretas
@@ -105,16 +70,15 @@ def tentativa():
     return chute
 
 def imprimePodio():
-    colocacao = 1
-    for i in podio[0]:
-        print(f'{colocacao}º lugar', end= ' - ')
-        print(i)
-        colocacao += 1
 
-    for i in podio[1][::-1]:
-        print(f'{colocacao}º lugar', end= ' - ')
-        print(i)
-        colocacao += 1
+    if len(podio[0]) == 0:
+        print('Não houveram ganhadores')
+    else:
+        colocacao = 1
+        for i in podio[0]:
+            print(f'{colocacao}º lugar', end= ' - ')
+            print(i)
+            colocacao += 1
 
 def acertouLetra(tentativa):    
         index = 0
@@ -238,3 +202,10 @@ def inicioJogo(): # iniciar o jogo
             errouLetra()
 
     return podio
+
+def rodarJogo():
+    bemVindos()
+    definirJogadores()
+    inicioJogo()
+
+rodarJogo()
