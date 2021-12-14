@@ -1,6 +1,5 @@
-from random import randint
+import random
 from time import sleep
-from threading import Thread
 from funcoesEsteticas import *
 from menusNavegacao import *
 
@@ -13,13 +12,12 @@ cores = ['\033[1;31m','\033[1;41m','\033[1;32m','\033[1;42m','\033[1;33m','\033[
     '\033[1;92m','\033[1;102m','\033[1;93m','\033[1;94m','\033[1;104m','\033[1;95m','\033[1;105m',
     '\033[1;96m']#tirar as cores ilegíveis, precisa testar
 
-
-def palavraSecreta():          # sortear palavras secretas
-    listaPalavras = ["boneco de neve", "papal noel", "treno", "sinos", "estrela de belem", "presepio", "pinheiro",
+listaPalavras = ["boneco de neve", "papai noel", "treno", "sinos", "estrela de belem", "presepio", "pinheiro",
     "guirlanda", "advento", "panetone", "ceia", "tres reis magos", "uvas passas", "pave ou pra comer", "chamine",
     "luzes de natal,", "presentes", "carta", "bolas de natal", "feliz natal", "arvore de natal"] 
-    
-    palavra_secreta = str(listaPalavras[randint(0,(len(listaPalavras)-1))]).upper() #a palavra secreta é sorteada da lista                                                  
+
+def palavraSecreta():          # sortear palavras secretas
+    palavra_secreta = random.choice(listaPalavras).upper() #a palavra secreta é sorteada da lista                                                  
     return palavra_secreta
 
 
@@ -27,7 +25,7 @@ def letrasAcertadas(palavra):         # função para mostrar as letras de forma
     verificaLetras = []
     for i in palavra:
         if i.isspace():
-            verificaLetras.append(('        '))
+            verificaLetras.append(('     '))
         else:
             verificaLetras.append(marcador)
       
@@ -47,7 +45,7 @@ def definirJogadores():      # define quantos jogadores irão jogar e atribui a 
         jogadores[i].update(palavra = palavraSecreta())   #adiciona a palavra secreta ao dict
         jogadores[i].update(letrasAcertadas = letrasAcertadas(jogadores[i]['palavra']))  #adiciona as letras acertadas ao dict
         
-        cor = (cores[randint(0,(len(cores)-1))])   #soteia uma cor por jogador
+        cor = random.choice(cores)   #soteia uma cor por jogador
         jogadores[i].update(cor = cor)               #adiciona a cor ao dict
         cores.remove(cor) #para não repetir as cores
         
