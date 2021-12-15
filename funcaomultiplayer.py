@@ -2,6 +2,7 @@ import random
 from time import sleep
 from funcoesEsteticas import *
 from menusNavegacao import *
+import re
 
 jogadores = []
 podio = [[], []]   #indice 0 - ganhadores - indice 1 perdedores
@@ -29,15 +30,25 @@ def letrasAcertadas(palavra):         # função para mostrar as letras de forma
         else:
             verificaLetras.append(marcador)
       
-    return verificaLetras    
+    return verificaLetras
+
+def InputNumeroDeJogadores():
+    while(True):
+        try:
+            numeroJogadores = int(input('Quantas pessoas irão jogar? '))
+        except ValueError:
+            print("Valor inválido inserido! Por favor digite um número inteiro")
+            continue
+        if numeroJogadores > 20:
+            print('Limite de jogadores atingido. Max 20 jogadores')
+            continue
+        return numeroJogadores
 
 
 def definirJogadores():      # define quantos jogadores irão jogar e atribui a cada um deles - uma palavra, a qttd de erros e uma cor
     print()
-    numeroJogadores = int(input('Quantas pessoas irão jogar? '))
-    if numeroJogadores >20:      #limtar a 20 jogadores 
-        print('Valor max atingido. Max 20 jogadores')
-        numeroJogadores = int(input('Qantas pessoas irão jogar? '))
+    
+    numeroJogadores = InputNumeroDeJogadores()
     for i in range(numeroJogadores):                #dando os nomes de cada jogador 
         nome = input(f'Informe o jogador {i+1}: ')
         
@@ -63,8 +74,22 @@ def rodarJogadores():           # para rodar os jogadores caso perde ou ganha
 
 
 def tentativa():
-    chute = input('\nQual letra? ').strip().upper()     # colocar uma confirmação da letra, pode ser digitada errado
-                                                            #colocar uma validação para colocar somente uma letra e recusr números
+    while(True):
+        chute = input('\nQual letra? ').strip().upper()
+        confirmar = input(
+            "\n Confirma? \n Pressione 's' para sim, e qualquer outra tecla para cancelar."
+            )
+        if confirmar == 's':
+            if len(chute) != 1:
+                print("Por favor, digite apenas uma letra por vez.")
+            # verifica se a letra pertence ao alfabeto
+            elif re.match("[A-Za-z]", chute) is None:
+                print(f"{chute} é um caracter inválido, tente novamente!")
+                continue
+            break
+        else:
+            continue
+          
     return chute
 
 def imprimePodio():
