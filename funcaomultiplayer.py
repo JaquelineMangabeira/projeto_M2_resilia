@@ -15,7 +15,7 @@ cores = ['\033[1;31m','\033[1;41m','\033[1;32m','\033[1;42m','\033[1;33m','\033[
 
 listaPalavras = ["boneco de neve", "papai noel", "treno", "sinos", "estrela de belem", "presepio", "pinheiro",
     "guirlanda", "advento", "panetone", "ceia", "tres reis magos", "uvas passas", "pave ou pra comer", "chamine",
-    "luzes de natal,", "presentes", "carta", "bolas de natal", "feliz natal", "arvore de natal"] 
+    "luzes de natal", "presentes", "carta", "bolas de natal", "feliz natal", "arvore de natal"] 
 
 def palavraSecreta():          # sortear palavras secretas
     palavra_secreta = random.choice(listaPalavras).upper() #a palavra secreta é sorteada da lista                                                  
@@ -37,8 +37,8 @@ def definirJogadores():      # define quantos jogadores irão jogar e atribui a 
     global copiaJogadores
     print()
     numeroJogadores = int(input('Quantas pessoas irão jogar? '))
-    if numeroJogadores >20:      #limtar a 20 jogadores 
-        print('Valor max atingido. Max 20 jogadores')
+    if numeroJogadores >10 or numeroJogadores < 1:      #limtar a 10 jogadores 
+        print('Digite uma valor entre 1 e 10')
         numeroJogadores = int(input('Qantas pessoas irão jogar? '))
     for i in range(numeroJogadores):                #dando os nomes de cada jogador 
         nome = input(f'Informe o jogador {i+1}: ')
