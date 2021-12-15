@@ -1,11 +1,18 @@
-import random
+from random import randint
 from time import sleep
 from funcoesEsteticas import *
 from menusNavegacao import *
 from palavrasEmPOO import *
+import re
+
+######################### CREATE LIST FOR MODULE STATISTICS
+import statistics as s
+aux_list = list()
+control_list = list()
+jgReinicio = list()
+######################### MODULESTATISTIC
 
 jogadores = []
-copiaJogadores = []
 podio = [[], []]   #indice 0 - ganhadores - indice 1 perdedores
 marcador = ' __ '
 vez = 0  # a vez é o indice da lista de cada jogador
@@ -14,15 +21,23 @@ cores = ['\033[1;31m','\033[1;41m','\033[1;32m','\033[1;42m','\033[1;33m','\033[
     '\033[1;92m','\033[1;102m','\033[1;93m','\033[1;94m','\033[1;104m','\033[1;95m','\033[1;105m',
     '\033[1;96m']#tirar as cores ilegíveis, precisa testar
 
-
+def InputNumeroDeJogadores():
+    while(True):
+        try:
+            numeroJogadores = int(input('Quantas pessoas irão jogar? '))
+        except ValueError:
+            print("Valor inválido inserido! Por favor digite um número inteiro")
+            continue
+        if numeroJogadores > 20:
+            print('Limite de jogadores atingido. Max 20 jogadores')
+            continue
+        return numeroJogadores
 
 def definirJogadores():      # define quantos jogadores irão jogar e atribui a cada um deles - uma palavra, a qttd de erros e uma cor
-    global copiaJogadores
+    global jgReinicio
     print()
-    numeroJogadores = int(input('Quantas pessoas irão jogar? '))
-    if numeroJogadores >10 or numeroJogadores < 1:      #limtar a 10 jogadores 
-        print('Digite uma valor entre 1 e 10')
-        numeroJogadores = int(input('Qantas pessoas irão jogar? '))
+    numeroJogadores = InputNumeroDeJogadores()
+  
     for i in range(numeroJogadores):                #dando os nomes de cada jogador 
         nome = input(f'Informe o jogador {i+1}: ')
         
@@ -33,12 +48,98 @@ def definirJogadores():      # define quantos jogadores irão jogar e atribui a 
         letrasAcertadas = sorteio.getLetrasEscondidas()
         jogadores[i].update(letrasAcertadas = letrasAcertadas)  #adiciona as letras acertadas ao dict
         
-        cor = random.choice(cores)   #soteia uma cor por jogador
+        cor = (cores[randint(0,(len(cores)-1))])   #soteia uma cor por jogador
         jogadores[i].update(cor = cor)               #adiciona a cor ao dict
         cores.remove(cor) #para não repetir as cores
-        copiaJogadores = jogadores[:]
-    print(jogadores)
+
+        ######################### ADD INDEX LIST OF DICT AND FEEDING THE CONTROL FOR MODULE STATISTICS
+        aux_list.append({'ident': len(aux_list), 'names': jogadores[i]['nome'], 'win': 0, 'lose': 0})
+        control_list.append(jogadores[i]['nome'])
+        jgReinicio = jogadores[:]
+        ######################### MODULESTATISTICS
     return jogadores
+
+################3
+
+def definirJogadores2():  # define quantos jogadores irão jogar e atribui a cada um deles - uma palavra, a qttd de erros e uma cor
+    global jgReinicio
+    print()
+    jogadores = jgReinicio[:]
+    for i, valor_dicio in enumerate(jgReinicio):
+        sorteio = Palavra()
+        jogadores[i].update(erros=0)  # cria um dict e add a chave erros
+        palavraSorteada = sorteio.getPalavra()
+        jogadores[i].update(palavra = palavraSorteada)   #adiciona a palavra secreta ao dict
+        letrasAcertadas = sorteio.getLetrasEscondidas()
+        jogadores[i].update(letrasAcertadas = letrasAcertadas)  #adiciona as letras acertadas ao dict
+        # print(jogadores)
+    ######################### ADD INDEX LIST OF DICT AND FEEDING THE CONTROL FOR MODULE STATISTICS
+    aux_list.append({'ident': len(aux_list), 'names': jogadores[i]['nome'], 'win': 0, 'lose': 0})
+    control_list.append(jogadores[i]['nome'])
+    jgReinicio = jogadores[:]
+    ######################### MODULESTATISTICS
+    return jogadores
+
+################
+
+def  bemVindos ():
+    perdeu( """
+                  , -.
+             ()   \           A época mais mágica do ano chegou com um jogo que 
+             /    \             vem com cheiro de rabanada no ar e filmes
+           _/______\_                 clássicos para maratonar.
+          (__________)            
+          (/  @  @  \)       Se você não for o Grinch, O jogo Palavras Natalinas
+          (`._,()._,')         vai tornar a sua noite de natal muito especial  
+          (  `-'`-'  )          e cheia de união com a família (ou não rs.)            
+           \        /
+            \,,,,,,/                   Divirta-se e Boa sorte!
+              """)
+
+
+
+def menu_inicial():
+    print('1 - Iniciar jogo \n2 - Estísticas \n3 - Sair')
+    opcao = int(input('Escolha uma opção: '))
+    if opcao==1:
+        definirJogadores()
+        inicioJogo()
+
+    elif opcao==2:
+        s.view_statistics2(aux_list)
+        menu_inicial()
+
+    elif opcao==3:
+        exit()
+
+    else:
+        print('Opção inválida')
+        menu_inicial()
+
+def reiniciaJogo():
+    global vez, jogadores
+    print('1 - Reiniciar Partida')
+    print('2 - Reiniciar Jogo')
+    print('3 - Estatísiticas')
+    print('4 - Voltar para Menu Principal')
+    opc = int(input('Digite sua opcao: '))
+    if opc == 1:
+        jogadores = jgReinicio
+        vez = 0
+        bemVindos()
+        definirJogadores2()
+        inicioJogo()
+    if opc == 2:
+        vez = 0
+        rodarJogo()
+    if opc == 3:
+        s.view_statistics2(aux_list)
+        reiniciaJogo()
+    if opc == 4:
+        menu_inicial()
+    else:
+        print('Opção inválida')
+        reiniciaJogo()
 
 
 def rodarJogadores():           # para rodar os jogadores caso perde ou ganha
@@ -50,14 +151,28 @@ def rodarJogadores():           # para rodar os jogadores caso perde ou ganha
     print(f'Restam {6 - jogadores[vez]["erros"]} tentativas')
     print(jogadores[vez]['letrasAcertadas'])
 
-    
+
 def tentativa():
-    chute = input('\nQual letra? ').strip().upper()     # colocar uma confirmação da letra, pode ser digitada errado
-                                                            #colocar uma validação para colocar somente uma letra e recusr números
+    while(True):
+        chute = input('\nQual letra? ').strip().upper()
+        confirmar = input(
+            "\n Confirma? \n Pressione enter para prosseguir ou digite 'n' e pressione enter para cancelar, .\n"
+            )
+        if confirmar != 'n':
+            if len(chute) != 1:
+                print("Por favor, digite apenas uma letra por vez.")
+                chute = input('\nQual letra? ').strip().upper()
+            # verifica se a letra pertence ao alfabeto
+            elif re.match("[A-Za-z]", chute) is None:
+                print(f"{chute} é um caracter inválido, tente novamente!")
+                continue
+            break
+        else:
+            continue
     return chute
 
 def imprimePodio():
-
+    global podio
     if len(podio[0]) == 0:
         print('Não houveram ganhadores')
     else:
@@ -67,7 +182,11 @@ def imprimePodio():
             print(i)
             colocacao += 1
 
-    reinicarJogo()
+    ######################### LAUCH INFORMATION AND INVOCATION OF FUNCTION STATISTICS2
+    podio = [[], []]
+    print('\n' * 2)
+    reiniciaJogo()
+    ######################### MODULESTATISTICS
 
 def acertouLetra(tentativa):    
         index = 0
@@ -85,6 +204,11 @@ def acertouLetra(tentativa):
             ganhador = jogadores[vez]['nome']
             passouDeFase(f'{ganhador} acertou a palavra')
             podio[0].append(jogadores[vez]['nome'])                     #adiciona o nome ao pódio
+
+            ######################### UPDATE VALUE IN KEY -WIN- FROM THE DICT FOR MODULE STATISTICS
+            aux_list[control_list.index(jogadores[vez]['nome'])]['win'] += 1
+            ######################### MODULESTATISTICS
+
             jogadores.remove(jogadores[vez])                        #remove vencedor da lista de jogadores
             if len(jogadores) > 0:
                 rodarJogadores()
@@ -101,6 +225,11 @@ def errouLetra():
         perdeu(f'{jogadores[vez]["nome"]} foi enforcado. A palavra era {jogadores[vez]["palavra"] }')          
         
         podio[1].append(jogadores[vez]['nome'])  #adiciona o nome ao pódio
+
+        ######################### UPDATE VALUE IN KEY -LOSE- FROM THE DICT FOR MODULE STATISTICS
+        aux_list[control_list.index(jogadores[vez]['nome'])]['lose'] += 1
+        ######################### MODULESTATISTICS
+
         jogadores.remove(jogadores[vez]) #remove perdedor da lista de jogadores
         
         if len(jogadores) == 0:
@@ -192,12 +321,9 @@ def inicioJogo(): # iniciar o jogo
 
     return podio
 
-def reinicarJogo():
-    print('definido na parte do jonatas')
-
-
 def rodarJogo():
     bemVindos()
+    menu_inicial()
     definirJogadores()
     inicioJogo()
 

@@ -1,9 +1,12 @@
-from funcoesEsteticas import perdeu
+from time import sleep
+from sys import exit
+from statistics import view_statistics2 
 
-def bemVindos():
-    perdeu("""
-                 ,--.
-            ()   \           A época mais mágica do ano chegou com um jogo que 
+
+def  bemVindos ():
+    print( """
+                  , -.
+             ()   \           A época mais mágica do ano chegou com um jogo que 
              /    \             vem com cheiro de rabanada no ar e filmes
            _/______\_                 clássicos para maratonar.
           (__________)            
@@ -14,12 +17,5 @@ def bemVindos():
             \,,,,,,/                   Divirta-se e Boa sorte!
               """)
 
-    
 
-def menu():
-    print("""
-     _                   
-    |_ _ |o_ |\ |__|_ _.|
-    | (/_||/_| \(_||_(_||
-    """)
-    pass
+

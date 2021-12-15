@@ -10,7 +10,6 @@
 from colors import cores as co
 from time import sleep as sl
 
-
 # Definiction of function for module visualization --statistics
 
 
@@ -41,6 +40,8 @@ def view_statistics2(d_p):  # Function for visualization from the datas of game
             sl(0.4)
             print(f'{"|":<2}{d_p[lta[i][0]]["ident"]:<3}{i+1:<5}{d_p[lta[i][0]]["names"]:<25}{str(d_p[lta[i][0]]["win"]) + " -- " + str(d_p[lta[i][0]]["lose"]):<9} {"|":<1}')
     print(f"{co(13)}{'--' * 23}{co(-1)}")
+
+    
 
 
 # Data application for test

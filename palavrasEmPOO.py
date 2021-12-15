@@ -25,5 +25,3 @@ class Palavra():
         return verificaLetras
 
 
-objCarro = Palavra()
-print(objCarro.getPalavra())
