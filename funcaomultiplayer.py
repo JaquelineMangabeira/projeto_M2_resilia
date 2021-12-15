@@ -77,9 +77,9 @@ def tentativa():
     while(True):
         chute = input('\nQual letra? ').strip().upper()
         confirmar = input(
-            "\n Confirma? \n Pressione 's' para sim, e qualquer outra tecla para cancelar."
+            "\n Confirma? \n Pressione 'n' e depois enter para cancelar, ou apenas enter para prosseguir.\n"
             )
-        if confirmar == 's':
+        if confirmar != 'n':
             if len(chute) != 1:
                 print("Por favor, digite apenas uma letra por vez.")
             # verifica se a letra pertence ao alfabeto
