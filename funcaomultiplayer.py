@@ -15,7 +15,7 @@ cores = ['\033[1;31m','\033[1;41m','\033[1;32m','\033[1;42m','\033[1;33m','\033[
 
 listaPalavras = ["boneco de neve", "papai noel", "treno", "sinos", "estrela de belem", "presepio", "pinheiro",
     "guirlanda", "advento", "panetone", "ceia", "tres reis magos", "uvas passas", "pave ou pra comer", "chamine",
-    "luzes de natal,", "presentes", "carta", "bolas de natal", "feliz natal", "arvore de natal"] 
+    "luzes de natal", "presentes", "carta", "bolas de natal", "feliz natal", "arvore de natal"] 
 
 def palavraSecreta():          # sortear palavras secretas
     palavra_secreta = random.choice(listaPalavras).upper() #a palavra secreta é sorteada da lista                                                  
