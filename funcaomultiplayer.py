@@ -2,6 +2,7 @@ import random
 from time import sleep
 from funcoesEsteticas import *
 from menusNavegacao import *
+from palavrasEmPOO import *
 
 jogadores = []
 copiaJogadores = []
@@ -13,24 +14,6 @@ cores = ['\033[1;31m','\033[1;41m','\033[1;32m','\033[1;42m','\033[1;33m','\033[
     '\033[1;92m','\033[1;102m','\033[1;93m','\033[1;94m','\033[1;104m','\033[1;95m','\033[1;105m',
     '\033[1;96m']#tirar as cores ilegíveis, precisa testar
 
-listaPalavras = ["boneco de neve", "papai noel", "treno", "sinos", "estrela de belem", "presepio", "pinheiro",
-    "guirlanda", "advento", "panetone", "ceia", "tres reis magos", "uvas passas", "pave ou pra comer", "chamine",
-    "luzes de natal", "presentes", "carta", "bolas de natal", "feliz natal", "arvore de natal"] 
-
-def palavraSecreta():          # sortear palavras secretas
-    palavra_secreta = random.choice(listaPalavras).upper() #a palavra secreta é sorteada da lista                                                  
-    return palavra_secreta
-
-
-def letrasAcertadas(palavra):         # função para mostrar as letras de forma legivel
-    verificaLetras = []
-    for i in palavra:
-        if i.isspace():
-            verificaLetras.append(('     '))
-        else:
-            verificaLetras.append(marcador)
-      
-    return verificaLetras    
 
 
 def definirJogadores():      # define quantos jogadores irão jogar e atribui a cada um deles - uma palavra, a qttd de erros e uma cor
@@ -43,14 +26,18 @@ def definirJogadores():      # define quantos jogadores irão jogar e atribui a 
     for i in range(numeroJogadores):                #dando os nomes de cada jogador 
         nome = input(f'Informe o jogador {i+1}: ')
         
+        sorteio = Palavra()
         jogadores.append({'nome':nome, 'erros': 0})     #cria um dict e add a chave erros
-        jogadores[i].update(palavra = palavraSecreta())   #adiciona a palavra secreta ao dict
-        jogadores[i].update(letrasAcertadas = letrasAcertadas(jogadores[i]['palavra']))  #adiciona as letras acertadas ao dict
+        palavraSorteada = sorteio.getPalavra()
+        jogadores[i].update(palavra = palavraSorteada)   #adiciona a palavra secreta ao dict
+        letrasAcertadas = sorteio.getLetrasEscondidas()
+        jogadores[i].update(letrasAcertadas = letrasAcertadas)  #adiciona as letras acertadas ao dict
         
         cor = random.choice(cores)   #soteia uma cor por jogador
         jogadores[i].update(cor = cor)               #adiciona a cor ao dict
         cores.remove(cor) #para não repetir as cores
         copiaJogadores = jogadores[:]
+    print(jogadores)
     return jogadores
 
 
@@ -62,6 +49,7 @@ def rodarJogadores():           # para rodar os jogadores caso perde ou ganha
     titulos(f'Vez do jogador {jogadores[vez]["nome"]}', jogadores[vez]['cor'])
     print(f'Restam {6 - jogadores[vez]["erros"]} tentativas')
     print(jogadores[vez]['letrasAcertadas'])
+
     
 def tentativa():
     chute = input('\nQual letra? ').strip().upper()     # colocar uma confirmação da letra, pode ser digitada errado
@@ -205,16 +193,8 @@ def inicioJogo(): # iniciar o jogo
     return podio
 
 def reinicarJogo():
-    global vez
-    global podio
-    print('1 - Reiniciar Partida \n2 - Reiniciar Jogo \n 3 - Estatística \n4 - Voltar Menu Principal')
-    opcao = int(input('Informe a opção desejada: '))
-    if opcao == 1:
-        print('reiniciando jogo')
-        jogadores = copiaJogadores
-        vez = 0
-        podio
-        inicioJogo()
+    print('definido na parte do jonatas')
+
 
 def rodarJogo():
     bemVindos()
