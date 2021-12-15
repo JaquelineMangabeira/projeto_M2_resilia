@@ -21,6 +21,3 @@ def menu():
     | (/_||/_| \(_||_(_||
     """)
     pass
-
-bemVindos()
-menu()
