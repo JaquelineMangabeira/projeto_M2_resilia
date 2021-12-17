@@ -1,7 +1,8 @@
 from time import sleep
+from funcoesEsteticas import perdeu
 
-def  bemVindos ():
-  print( """
+def  bemVindos():
+  perdeu( """
                   , -.
              ()   \           A época mais mágica do ano chegou com um jogo que 
              /    \             vem com cheiro de rabanada no ar e filmes
@@ -14,9 +15,10 @@ def  bemVindos ():
             \,,,,,,/                   Divirta-se e Boa sorte!
               """)
   sleep(2)
-  menu_inicial()
+  
 
 def menu_inicial():
-  print('1 - Iniciar jogo \n2 - Estísticas \n3 - Sair')
+  bemVindos()
+  print('1 - Iniciar jogo \n2 - Estatísiticas \n3 - Sair')
   opcao = int(input('Escolha uma opção: '))
   return opcao

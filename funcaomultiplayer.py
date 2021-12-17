@@ -1,7 +1,8 @@
 from random import randint
 from time import sleep
 from funcoesEsteticas import *
-import menuM as mN
+from menuP import *
+
 from palavrasEmPOO import *
 import re
 
@@ -107,7 +108,7 @@ def reiniciaJogo():
         s.view_statistics2(aux_list)
         reiniciaJogo()
     if opc == 4:
-        menu_inicial()
+        navegaMenu()
     else:
         print('Opção inválida')
         reiniciaJogo()
@@ -299,12 +300,11 @@ def rodarJogo():
 
 
 def navegaMenu():
-    opc = mN.menu_inicial()
+    opc = menu_inicial()
     if opc==1:
         rodarJogo()
     elif opc==2:
-        print()
-        # s.view_statistics2(d_p)
+        s.view_statistics2(aux_list)
         navegaMenu()
     elif opc==3:
         exit()
