@@ -294,9 +294,22 @@ def inicioJogo(): # iniciar o jogo
     return podio
 
 def rodarJogo():
-    bemVindos()
-    menu_inicial()
     definirJogadores()
     inicioJogo()
 
-rodarJogo()
+
+def navegaMenu():
+    opc = mN.menu_inicial()
+    if opc==1:
+        rodarJogo()
+    elif opc==2:
+        print()
+        # s.view_statistics2(d_p)
+        navegaMenu()
+    elif opc==3:
+        exit()
+    else:
+        print('Opção inválida')
+        navegaMenu()
+
+navegaMenu()
