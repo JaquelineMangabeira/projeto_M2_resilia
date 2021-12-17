@@ -2,7 +2,6 @@ from random import randint
 from time import sleep
 from funcoesEsteticas import *
 from menuP import *
-
 from palavrasEmPOO import *
 import re
 
