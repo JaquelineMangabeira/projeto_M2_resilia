@@ -12,6 +12,7 @@ control_list = list()
 jgReinicio = list()
 ######################### MODULESTATISTIC
 
+
 jogadores = []
 podio = [[], []]   #indice 0 - ganhadores - indice 1 perdedores
 marcador = ' __ '
@@ -20,6 +21,7 @@ cores = ['\033[1;31m','\033[1;41m','\033[1;32m','\033[1;42m','\033[1;33m','\033[
     '\033[1;45m','\033[1;36m','\033[1;46m','\033[1;37m','\033[1;90m','\033[1;100m','\033[1;91m','\033[1;101m',
     '\033[1;92m','\033[1;102m','\033[1;93m','\033[1;94m','\033[1;104m','\033[1;95m','\033[1;105m',
     '\033[1;96m']#tirar as cores ilegíveis, precisa testar
+
 
 def InputNumeroDeJogadores():
     while(True):
@@ -33,11 +35,13 @@ def InputNumeroDeJogadores():
             continue
         return numeroJogadores
 
+
 def definirJogadores():      # define quantos jogadores irão jogar e atribui a cada um deles - uma palavra, a qttd de erros e uma cor
     global jgReinicio
     print()
+
     numeroJogadores = InputNumeroDeJogadores()
-  
+
     for i in range(numeroJogadores):                #dando os nomes de cada jogador 
         nome = input(f'Informe o jogador {i+1}: ')
         
@@ -161,7 +165,7 @@ def tentativa():
         if confirmar != 'n':
             if len(chute) != 1:
                 print("Por favor, digite apenas uma letra por vez.")
-                chute = input('\nQual letra? ').strip().upper()
+
             # verifica se a letra pertence ao alfabeto
             elif re.match("[A-Za-z]", chute) is None:
                 print(f"{chute} é um caracter inválido, tente novamente!")
@@ -171,6 +175,7 @@ def tentativa():
             continue
     return chute
 
+  
 def imprimePodio():
     global podio
     if len(podio[0]) == 0:

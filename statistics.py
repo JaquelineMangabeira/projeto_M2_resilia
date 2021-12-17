@@ -3,7 +3,6 @@
 # Projeto de Finalizacao do Módulo II
 # Curso de Data Analytics - Resília
 
-
 # Import modules
 
 # Lib for selection from colors
@@ -40,10 +39,3 @@ def view_statistics2(d_p):  # Function for visualization from the datas of game
             sl(0.4)
             print(f'{"|":<2}{d_p[lta[i][0]]["ident"]:<3}{i+1:<5}{d_p[lta[i][0]]["names"]:<25}{str(d_p[lta[i][0]]["win"]) + " -- " + str(d_p[lta[i][0]]["lose"]):<9} {"|":<1}')
     print(f"{co(13)}{'--' * 23}{co(-1)}")
-
-    
-
-
-# Data application for test
-
-# view_statistics2([{'ident': 0, 'names': 'Brunna', 'win': 3, 'lose': 0}, {'ident': 1, 'names': 'nome2', 'win': 0, 'lose': 2}, {'ident': 3, 'names': 'nome3', 'win': 1, 'lose': 0}, {'ident': 3, 'names': 'Jonathas', 'win': 3, 'lose': 1}])
