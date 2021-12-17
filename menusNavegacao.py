@@ -1,26 +1,21 @@
-def bemVindos():
-    print("""
-       ,--.
-  ()   \           Estamos na época mais mágica do ano, 
-   /    \             e em homenagem nosso tema é
- _/______\_             
-(__________)            Palavras Natalinas
-(/  @  @  \)
-(`._,()._,')
-(  `-'`-'  )               Divirta-se
- \        /
-  \,,,,,,/
-    """)
+from time import sleep
+from sys import exit
+from statistics import view_statistics2 
 
-    
 
-def menu():
-    print("""
-     _                   
-    |_ _ |o_ |\ |__|_ _.|
-    | (/_||/_| \(_||_(_||
-    """)
-    pass
+def  bemVindos ():
+    print( """
+                  , -.
+             ()   \           A época mais mágica do ano chegou com um jogo que 
+             /    \             vem com cheiro de rabanada no ar e filmes
+           _/______\_                 clássicos para maratonar.
+          (__________)            
+          (/  @  @  \)       Se você não for o Grinch, O jogo Palavras Natalinas
+          (`._,()._,')         vai tornar a sua noite de natal muito especial  
+          (  `-'`-'  )          e cheia de união com a família (ou não rs.)            
+           \        /
+            \,,,,,,/                   Divirta-se e Boa sorte!
+              """)
 
-bemVindos()
-menu()
+
+
