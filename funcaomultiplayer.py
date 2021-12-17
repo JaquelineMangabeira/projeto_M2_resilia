@@ -103,7 +103,7 @@ def  bemVindos ():
 
 
 def menu_inicial():
-    print('1 - Iniciar jogo \n2 - Estísticas \n3 - Sair')
+    print('1 - Iniciar jogo \n2 - Estatísticas \n3 - Sair')
     opcao = int(input('Escolha uma opção: '))
     if opcao==1:
         definirJogadores()
