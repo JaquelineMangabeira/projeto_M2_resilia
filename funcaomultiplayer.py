@@ -86,39 +86,6 @@ def definirJogadores2():  # define quantos jogadores irão jogar e atribui a cad
 
 ################
 
-def  bemVindos ():
-    perdeu( """
-                  , -.
-             ()   \           A época mais mágica do ano chegou com um jogo que 
-             /    \             vem com cheiro de rabanada no ar e filmes
-           _/______\_                 clássicos para maratonar.
-          (__________)            
-          (/  @  @  \)       Se você não for o Grinch, O jogo Palavras Natalinas
-          (`._,()._,')         vai tornar a sua noite de natal muito especial  
-          (  `-'`-'  )          e cheia de união com a família (ou não rs.)            
-           \        /
-            \,,,,,,/                   Divirta-se e Boa sorte!
-              """)
-
-
-
-def menu_inicial():
-    print('1 - Iniciar jogo \n2 - Estatísticas \n3 - Sair')
-    opcao = int(input('Escolha uma opção: '))
-    if opcao==1:
-        definirJogadores()
-        inicioJogo()
-
-    elif opcao==2:
-        s.view_statistics2(aux_list)
-        menu_inicial()
-
-    elif opcao==3:
-        exit()
-
-    else:
-        print('Opção inválida')
-        menu_inicial()
 
 def reiniciaJogo():
     global vez, jogadores
