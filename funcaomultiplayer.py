@@ -76,11 +76,14 @@ def definirJogadores2():  # define quantos jogadores irão jogar e atribui a cad
     jogadores = jgReinicio[:]
     for i, valor_dicio in enumerate(jgReinicio):
         sorteio = Palavra()
-        jogadores[i].update(erros=0)  # cria um dict e add a chave erros
+        jogadores.append({'nome':nome, 'erros': 0})     #cria um dict e add a chave erros
+        sorteio.setPalavra(listaPalavras)
         palavraSorteada = sorteio.getPalavra()
         jogadores[i].update(palavra = palavraSorteada)   #adiciona a palavra secreta ao dict
+        sorteio.setLetrasEscondidas(palavraSorteada)
         letrasAcertadas = sorteio.getLetrasEscondidas()
         jogadores[i].update(letrasAcertadas = letrasAcertadas)  #adiciona as letras acertadas ao dict
+        
         # print(jogadores)
     ######################### ADD INDEX LIST OF DICT AND FEEDING THE CONTROL FOR MODULE STATISTICS
     aux_list.append({'ident': len(aux_list), 'names': jogadores[i]['nome'], 'win': 0, 'lose': 0})
