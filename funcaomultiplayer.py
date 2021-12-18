@@ -128,6 +128,7 @@ def rodarJogadores():           # para rodar os jogadores caso perde ou ganha
         vez = 0                     #volta ao primeiro jogador (indice 0)
 
     titulos(f'Vez do jogador {jogadores[vez]["nome"]}', jogadores[vez]['cor'])
+    desenha_forca(jogadores[vez]['erros'])
     print(f'Restam {6 - jogadores[vez]["erros"]} tentativas')
     print(jogadores[vez]['letrasAcertadas'])
 
@@ -141,6 +142,7 @@ def tentativa():
         if confirmar != 'n':
             if len(chute) != 1:
                 print("Por favor, digite apenas uma letra por vez.")
+                tentativa()
 
             # verifica se a letra pertence ao alfabeto
             elif re.match("[A-Za-z]", chute) is None:
@@ -230,6 +232,15 @@ def desenha_forca(erros):
     sleep(0.1)
     print(" |/      |    ")
     sleep(0.1)
+
+    if(jogadores[vez]['erros'] == 0):
+        print(" |            ")
+        sleep(0.1)
+        print(" |            ")
+        sleep(0.1)
+        print(" |            ")
+        sleep(0.1)
+        print(" |            ")
 
     if(jogadores[vez]['erros'] == 1):
         print(" |      (_)   ")
