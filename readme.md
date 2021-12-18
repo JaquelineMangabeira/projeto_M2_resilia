@@ -1,4 +1,4 @@
-# Execute o arquivo multiplayer na branch main
+# Execute o arquivo funcaomultiplayer na branch main
 
 Jogo da Forca
 Tema Natalino
