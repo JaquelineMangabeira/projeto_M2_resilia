@@ -4,6 +4,7 @@ from funcoesEsteticas import *
 from menuP import *
 from palavrasEmPOO import *
 import re
+from desenhoForca import desenha_forca
 
 ######################### CREATE LIST FOR MODULE STATISTICS
 import statistics as s
@@ -225,76 +226,6 @@ def errouLetra():
         vez += 1
         perdeu('Passou a vez')
         rodarJogadores()
-
-
-def desenha_forca(erros):
-    print("  _______     ")
-    sleep(0.1)
-    print(" |/      |    ")
-    sleep(0.1)
-
-    if(jogadores[vez]['erros'] == 0):
-        print(" |            ")
-        sleep(0.1)
-        print(" |            ")
-        sleep(0.1)
-        print(" |            ")
-        sleep(0.1)
-        print(" |            ")
-
-    if(jogadores[vez]['erros'] == 1):
-        print(" |      (_)   ")
-        sleep(0.1)
-        print(" |            ")
-        sleep(0.1)
-        print(" |            ")
-        sleep(0.1)
-        print(" |            ")
-
-    if(jogadores[vez]['erros'] == 2):
-        print(" |      (_)   ")
-        sleep(0.1)
-        print(" |      \|    ")
-        sleep(0.1)
-        print(" |            ")
-        sleep(0.1)
-        print(" |            ")
-
-    if(jogadores[vez]['erros'] == 3):
-        print(" |      (_)   ")
-        sleep(0.1)
-        print(" |      \|/   ")
-        sleep(0.1)
-        print(" |            ")
-        sleep(0.1)
-        print(" |            ")
-
-    if(jogadores[vez]['erros'] == 4):
-        print(" |      (_)   ")
-        sleep(0.1)
-        print(" |      \|/   ")
-        sleep(0.1)
-        print(" |       |    ")
-        sleep(0.1)
-        print(" |            ")
-
-    if(jogadores[vez]['erros'] == 5):
-        print(" |      (_)   ")
-        sleep(0.1)
-        print(" |      \|/   ")
-        sleep(0.1)
-        print(" |       |    ")
-        sleep(0.1)
-        print(" |      /     ")
-
-    if (jogadores[vez]['erros'] == 6):
-        print(" |      (_)   ")
-        sleep(0.1)
-        print(" |      \|/   ")
-        sleep(0.1)
-        print(" |       |    ")
-        sleep(0.1)
-        print(" |      / \   ")
 
 
 def inicioJogo(): # iniciar o jogo
