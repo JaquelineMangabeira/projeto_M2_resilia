@@ -190,7 +190,7 @@ def acertouLetra(tentativa):
         print(jogadores[vez]['letrasAcertadas'])
             
         if marcador not in jogadores[vez]['letrasAcertadas']:
-            passouDeFase(f'{jogadores[vez]["nome"]} acertou a palavra')
+            colorir(f'{jogadores[vez]["nome"]} acertou a palavra', '\033[32m')
             podio[0].append(jogadores[vez]['nome'])                     #adiciona o nome ao pódio
 
             ######################### UPDATE VALUE IN KEY -WIN- FROM THE DICT FOR MODULE STATISTICS
@@ -210,7 +210,7 @@ def errouLetra():
     desenha_forca(jogadores[vez]['erros'])
     
     if jogadores[vez]['erros'] == 6:
-        perdeu(f'{jogadores[vez]["nome"]} foi enforcado. A palavra era {jogadores[vez]["palavra"] }')          
+        colorir(f'{jogadores[vez]["nome"]} foi enforcado. A palavra era {jogadores[vez]["palavra"] }')          
         
         podio[1].append(jogadores[vez]['nome'])  #adiciona o nome ao pódio
 
@@ -221,14 +221,14 @@ def errouLetra():
         jogadores.remove(jogadores[vez]) #remove perdedor da lista de jogadores
         
         if len(jogadores) == 0:
-            perdeu('Fim de Jogo')
+            colorir('Fim de Jogo')
             imprimePodio()
         else:
             rodarJogadores()
     
     else:
         vez += 1
-        perdeu('Passou a vez')
+        colorir('Passou a vez')
         rodarJogadores()
 
 

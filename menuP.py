@@ -1,8 +1,8 @@
 from time import sleep
-from funcoesEsteticas import perdeu
+from funcoesEsteticas import colorir
 
 def  bemVindos():
-  perdeu( """
+  colorir( """
                   , -.
              ()   \           A época mais mágica do ano chegou com um jogo que 
              /    \             vem com cheiro de rabanada no ar e filmes
