@@ -1,7 +1,4 @@
 import random
-
-marcador = ' __ '
-
 class Palavra():
     
     palavra = ''
@@ -14,19 +11,7 @@ class Palavra():
         return self.palavra
 
     def setLetrasEscondidas(self, palavra):
-        esconder = palavra
-        verificaLetras = []
-        for i in esconder:
-            if i.isspace():
-                verificaLetras.append(('     '))
-            else:
-                verificaLetras.append(marcador)
-        self.letrasEscondidas = verificaLetras 
+        self.letrasEscondidas = ['       ' if i.isspace() else ' __ ' for i in palavra]
     
     def getLetrasEscondidas(self):
         return self.letrasEscondidas
-
-
-
-
-
