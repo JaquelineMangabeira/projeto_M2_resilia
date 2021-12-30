@@ -136,11 +136,16 @@ def rodarJogadores():           # para rodar os jogadores caso perde ou ganha
 
 def tentativa():
     while(True):
-        chute = input('\nQual letra? ').strip().upper()
+        chute = input('\nQual letra ou palavra? ').strip().upper()
         confirmar = input(
             "\n Confirma? \n Pressione enter para prosseguir ou digite 'n' e pressione enter para cancelar, .\n"
             )
-        if confirmar != 'n':
+
+        if chute == jogadores[vez]['palavra']:
+            jogadores[vez]['letrasAcertadas'] = chute.upper()
+            acertouLetra(chute)
+
+        elif confirmar != 'n':
             if len(chute) != 1:
                 print("Por favor, digite apenas uma letra por vez.")
                 tentativa()
@@ -181,12 +186,11 @@ def acertouLetra(tentativa):
             if (tentativa.upper() == letra.upper()):
                 jogadores[vez]['letrasAcertadas'][index] = letra                
             index += 1
-        print(f'Bela tentativa, adicionando letra {tentativa}')
+        print(f'Bela tentativa, adicionando {tentativa}')
         print(jogadores[vez]['letrasAcertadas'])
             
         if marcador not in jogadores[vez]['letrasAcertadas']:
-            ganhador = jogadores[vez]['nome']
-            passouDeFase(f'{ganhador} acertou a palavra')
+            passouDeFase(f'{jogadores[vez]["nome"]} acertou a palavra')
             podio[0].append(jogadores[vez]['nome'])                     #adiciona o nome ao pódio
 
             ######################### UPDATE VALUE IN KEY -WIN- FROM THE DICT FOR MODULE STATISTICS
